@@ -1,10 +1,18 @@
 package com.jakspinning.kingdomwar;
 
+import com.artemis.Entity;
 import com.artemis.World;
+import com.artemis.utils.EntityBuilder;
 import com.badlogic.gdx.ApplicationAdapter;
 import com.badlogic.gdx.Gdx;
+import com.badlogic.gdx.assets.AssetManager;
+import com.badlogic.gdx.graphics.Texture;
+import com.jakspinning.kingdomwar.component.PositionComponent;
+import com.jakspinning.kingdomwar.component.TextureComponent;
 import com.jakspinning.kingdomwar.manager.CameraManager;
+import com.jakspinning.kingdomwar.manager.SpriteBatchManager;
 import com.jakspinning.kingdomwar.system.PrepareGraphicSystem;
+import com.jakspinning.kingdomwar.system.RendererSystem;
 
 public class KingdomWarGame extends ApplicationAdapter {
     private World world;
@@ -14,10 +22,17 @@ public class KingdomWarGame extends ApplicationAdapter {
         world = new World();
 
         world.setManager(new CameraManager());
+        world.setManager(new SpriteBatchManager());
 
         world.setSystem(new PrepareGraphicSystem());
+        world.setSystem(new RendererSystem());
 
         world.initialize();
+
+        Entity perso = new EntityBuilder(world)
+                .with(new PositionComponent(0, 0))
+                .with(new TextureComponent(new Texture("badlogic.jpg")))
+                .build();
 	}
 
 	@Override
