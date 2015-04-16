@@ -7,10 +7,12 @@ import com.badlogic.gdx.ApplicationAdapter;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.assets.AssetManager;
 import com.badlogic.gdx.graphics.Texture;
+import com.jakspinning.kingdomwar.component.HexGridComponent;
 import com.jakspinning.kingdomwar.component.PositionComponent;
 import com.jakspinning.kingdomwar.component.TextureComponent;
 import com.jakspinning.kingdomwar.manager.CameraManager;
 import com.jakspinning.kingdomwar.manager.SpriteBatchManager;
+import com.jakspinning.kingdomwar.system.GridRendererSystem;
 import com.jakspinning.kingdomwar.system.PrepareGraphicSystem;
 import com.jakspinning.kingdomwar.system.RendererSystem;
 
@@ -25,9 +27,15 @@ public class KingdomWarGame extends ApplicationAdapter {
         world.setManager(new SpriteBatchManager());
 
         world.setSystem(new PrepareGraphicSystem());
+
         world.setSystem(new RendererSystem());
+        //world.setSystem(new GridRendererSystem());
 
         world.initialize();
+
+        Entity map = new EntityBuilder(world)
+                .with(new HexGridComponent(10, 10))
+                .build();
 
         Entity perso = new EntityBuilder(world)
                 .with(new PositionComponent(0, 0))
