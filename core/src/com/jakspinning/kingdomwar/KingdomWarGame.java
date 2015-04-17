@@ -35,7 +35,7 @@ public class KingdomWarGame extends ApplicationAdapter {
         world.initialize();
 
         Entity map = new EntityBuilder(world)
-                .with(new HexGridComponent(10, 3))
+                .with(new HexGridComponent(10, 10))
                 .with(new TextureComponent(new Texture("hexagon.png")))
                 .build();
 

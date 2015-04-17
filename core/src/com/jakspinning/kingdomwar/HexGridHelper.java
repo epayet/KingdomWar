@@ -14,7 +14,7 @@ public class HexGridHelper {
         float w = (float)Math.sqrt(3)/2f*h;
 
         y = yGrid*h*3/4f;
-        x = xGrid*w + y%2*w/2f  ;
+        x = xGrid*w + yGrid%2*w/2f  ;
         return new Vector2(x,y);
     }
 }
