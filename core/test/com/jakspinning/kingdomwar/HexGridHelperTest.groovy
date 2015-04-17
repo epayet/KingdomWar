@@ -17,7 +17,7 @@ class HexGridHelperTest extends Specification {
         Vector2 pos = HexGridHelper.toWorldCoord(xGrid,yGrid,size)
 
         then:
-        Math.round(pos.x) == 17
+        Math.round(pos.x) == 8
         Math.round(pos.y) == 10
     }
 }

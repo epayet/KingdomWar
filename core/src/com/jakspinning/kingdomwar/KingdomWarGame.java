@@ -29,18 +29,20 @@ public class KingdomWarGame extends ApplicationAdapter {
         world.setSystem(new PrepareGraphicSystem());
 
         world.setSystem(new RendererSystem());
-        //world.setSystem(new GridRendererSystem());
+
+        world.setSystem(new GridRendererSystem());
 
         world.initialize();
 
         Entity map = new EntityBuilder(world)
-                .with(new HexGridComponent(10, 10))
+                .with(new HexGridComponent(10, 3))
+                .with(new TextureComponent(new Texture("hexagon.png")))
                 .build();
 
-        Entity perso = new EntityBuilder(world)
+        /*Entity perso = new EntityBuilder(world)
                 .with(new PositionComponent(0, 0))
                 .with(new TextureComponent(new Texture("badlogic.jpg")))
-                .build();
+                .build();*/
 	}
 
 	@Override

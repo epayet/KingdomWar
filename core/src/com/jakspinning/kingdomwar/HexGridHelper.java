@@ -10,9 +10,11 @@ public class HexGridHelper {
     public static Vector2 toWorldCoord(int xGrid,int yGrid,float hexSize){
         float x = 0;
         float y = 0;
+        float h = hexSize*2;
+        float w = (float)Math.sqrt(3)/2f*h;
 
-        x = xGrid*hexSize* (float)Math.sqrt(3);
-        y = yGrid*hexSize*2;
+        y = yGrid*h*3/4f;
+        x = xGrid*w + y%2*w/2f  ;
         return new Vector2(x,y);
     }
 }
