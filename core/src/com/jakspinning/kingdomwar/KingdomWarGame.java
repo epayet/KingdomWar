@@ -5,7 +5,6 @@ import com.artemis.World;
 import com.artemis.utils.EntityBuilder;
 import com.badlogic.gdx.ApplicationAdapter;
 import com.badlogic.gdx.Gdx;
-import com.badlogic.gdx.assets.AssetManager;
 import com.badlogic.gdx.graphics.Texture;
 import com.jakspinning.kingdomwar.component.HexGridComponent;
 import com.jakspinning.kingdomwar.component.PositionComponent;
@@ -15,6 +14,7 @@ import com.jakspinning.kingdomwar.manager.SpriteBatchManager;
 import com.jakspinning.kingdomwar.system.GridRendererSystem;
 import com.jakspinning.kingdomwar.system.PrepareGraphicSystem;
 import com.jakspinning.kingdomwar.system.RendererSystem;
+
 
 public class KingdomWarGame extends ApplicationAdapter {
     private World world;
@@ -28,21 +28,21 @@ public class KingdomWarGame extends ApplicationAdapter {
 
         world.setSystem(new PrepareGraphicSystem());
 
-        world.setSystem(new RendererSystem());
-
         world.setSystem(new GridRendererSystem());
+
+        world.setSystem(new RendererSystem());
 
         world.initialize();
 
         Entity map = new EntityBuilder(world)
                 .with(new HexGridComponent(10, 10))
-                .with(new TextureComponent(new Texture("hexagon.png")))
+                .with(new TextureComponent(new Texture("Tiles/tileGrass.png")))
                 .build();
 
-        /*Entity perso = new EntityBuilder(world)
-                .with(new PositionComponent(0, 0))
-                .with(new TextureComponent(new Texture("badlogic.jpg")))
-                .build();*/
+        Entity perso = new EntityBuilder(world)
+                .with(new PositionComponent(HexGridHelper.toHexCenterWorldCoord(1, 1, Constants.HEX_TILE_W, Constants.HEX_TILE_H, Constants.HEX_TILE_DEPTH)))
+                        .with(new TextureComponent(new Texture("Tiles/alienBlue.png")))
+                .build();
 	}
 
 	@Override

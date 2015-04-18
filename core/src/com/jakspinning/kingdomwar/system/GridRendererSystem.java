@@ -6,6 +6,7 @@ import com.artemis.Entity;
 import com.artemis.annotations.Wire;
 import com.artemis.systems.EntityProcessingSystem;
 import com.badlogic.gdx.math.Vector2;
+import com.jakspinning.kingdomwar.Constants;
 import com.jakspinning.kingdomwar.HexGridHelper;
 import com.jakspinning.kingdomwar.component.HexGridComponent;
 import com.jakspinning.kingdomwar.component.TextureComponent;
@@ -40,13 +41,13 @@ public class GridRendererSystem extends EntityProcessingSystem{
     protected void process(Entity e) {
         HexGridComponent gridComponent = hexGridMapper.get(e);
         TextureComponent textureComponent = textureMapper.get(e);
-        for(int xGrid = 0;xGrid < gridComponent.width;xGrid++){
-            for(int yGrid = 0;yGrid < gridComponent.height;yGrid++){
-                float size = 25;
-                Vector2 position = HexGridHelper.toWorldCoord(xGrid,yGrid,size);
-                float h = size*2;
-                float w = (float)Math.sqrt(3)/2*h;
-                spriteBatchManager.spriteBatch.draw(textureComponent.texture, position.x, position.y,w,h);
+
+            for(int yGrid = gridComponent.height;yGrid >=0;yGrid--){
+                for(int xGrid = 0;xGrid < gridComponent.width;xGrid++){
+
+                Vector2 position = HexGridHelper.toWorldCoord(xGrid,yGrid, Constants.HEX_TILE_W,Constants.HEX_TILE_H);
+
+                spriteBatchManager.spriteBatch.draw(textureComponent.texture, position.x, position.y);
             }
         }
     }

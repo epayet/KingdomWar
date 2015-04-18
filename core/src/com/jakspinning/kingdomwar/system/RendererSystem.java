@@ -5,8 +5,6 @@ import com.artemis.ComponentMapper;
 import com.artemis.Entity;
 import com.artemis.annotations.Wire;
 import com.artemis.systems.EntityProcessingSystem;
-import com.badlogic.gdx.Gdx;
-import com.badlogic.gdx.graphics.Pixmap;
 import com.jakspinning.kingdomwar.component.PositionComponent;
 import com.jakspinning.kingdomwar.component.TextureComponent;
 import com.jakspinning.kingdomwar.manager.SpriteBatchManager;
@@ -39,9 +37,9 @@ public class RendererSystem extends EntityProcessingSystem{
     @Override
     protected void process(Entity e) {
         TextureComponent textureComponent = textureMapper.get(e);
-        PositionComponent position = positionMapper.get(e);
+        PositionComponent positionComponent = positionMapper.get(e);
 
-        spriteBatchManager.spriteBatch.draw(textureComponent.texture, position.x, position.y);
+        spriteBatchManager.spriteBatch.draw(textureComponent.texture, positionComponent.position.x,positionComponent.position.y);
     }
 
     @Override

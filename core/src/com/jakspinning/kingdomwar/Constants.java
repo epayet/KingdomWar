@@ -7,4 +7,8 @@ public class Constants {
 
     public static final float CAMERA_VIEWPORT_WIDTH = 800;
     public static final float CAMERA_VIEWPORT_HEIGHT = 600;
+    public static final float HEX_TILE_W = 65;
+    public static final float HEX_TILE_H = 67;
+    public static final float HEX_TILE_DEPTH = 22;
 }
+
