@@ -5,8 +5,12 @@ import com.artemis.World;
 import com.artemis.utils.EntityBuilder;
 import com.badlogic.gdx.ApplicationAdapter;
 import com.badlogic.gdx.Gdx;
-import com.badlogic.gdx.assets.AssetManager;
+import com.badlogic.gdx.Input;
+import com.badlogic.gdx.graphics.OrthographicCamera;
 import com.badlogic.gdx.graphics.Texture;
+import com.badlogic.gdx.maps.tiled.TiledMap;
+import com.badlogic.gdx.maps.tiled.TmxMapLoader;
+import com.badlogic.gdx.math.MathUtils;
 import com.jakspinning.kingdomwar.component.HexGridComponent;
 import com.jakspinning.kingdomwar.component.PositionComponent;
 import com.jakspinning.kingdomwar.component.TextureComponent;
@@ -15,6 +19,7 @@ import com.jakspinning.kingdomwar.manager.SpriteBatchManager;
 import com.jakspinning.kingdomwar.system.GridRendererSystem;
 import com.jakspinning.kingdomwar.system.PrepareGraphicSystem;
 import com.jakspinning.kingdomwar.system.RendererSystem;
+
 
 public class KingdomWarGame extends ApplicationAdapter {
     private World world;
@@ -28,26 +33,61 @@ public class KingdomWarGame extends ApplicationAdapter {
 
         world.setSystem(new PrepareGraphicSystem());
 
-        world.setSystem(new RendererSystem());
-
         world.setSystem(new GridRendererSystem());
+
+        world.setSystem(new RendererSystem());
 
         world.initialize();
 
+        TiledMap tmap = new TmxMapLoader().load("test.tmx");
         Entity map = new EntityBuilder(world)
-                .with(new HexGridComponent(10, 10))
-                .with(new TextureComponent(new Texture("hexagon.png")))
+                .with(new HexGridComponent(tmap))
+                .with(new TextureComponent(new Texture("Tiles/tileGrass.png")))
                 .build();
 
-        /*Entity perso = new EntityBuilder(world)
-                .with(new PositionComponent(0, 0))
-                .with(new TextureComponent(new Texture("badlogic.jpg")))
-                .build();*/
+        Entity perso = new EntityBuilder(world)
+                .with(new PositionComponent(HexGridHelper.toHexCenterWorldCoord(1, 1, Constants.HEX_TILE_W, Constants.HEX_TILE_H, Constants.HEX_TILE_DEPTH)))
+                        .with(new TextureComponent(new Texture("Tiles/alienBlue.png")))
+                .build();
 	}
 
 	@Override
 	public void render () {
+		CameraManager cameraManager = world.getManager(CameraManager.class);
+		handleInput(cameraManager.camera);
+		cameraManager.camera.update();
         world.setDelta(Gdx.graphics.getDeltaTime());
         world.process();
+        
+    }
+	
+	private void handleInput(OrthographicCamera cam) {
+        if (Gdx.input.isKeyPressed(Input.Keys.A)) {
+            cam.zoom += 0.02;
+        }
+        if (Gdx.input.isKeyPressed(Input.Keys.Q)) {
+            cam.zoom -= 0.02;
+        }
+        if (Gdx.input.isKeyPressed(Input.Keys.LEFT)) {
+            cam.translate(-3, 0, 0);
+        }
+        if (Gdx.input.isKeyPressed(Input.Keys.RIGHT)) {
+            cam.translate(3, 0, 0);
+        }
+        if (Gdx.input.isKeyPressed(Input.Keys.DOWN)) {
+            cam.translate(0, -3, 0);
+        }
+        if (Gdx.input.isKeyPressed(Input.Keys.UP)) {
+            cam.translate(0, 3, 0);
+        }
+        int rotationSpeed = 1;
+		if (Gdx.input.isKeyPressed(Input.Keys.W)) {
+            cam.rotate(-rotationSpeed , 0, 0, 1);
+        }
+        if (Gdx.input.isKeyPressed(Input.Keys.E)) {
+            cam.rotate(rotationSpeed, 0, 0, 1);
+        }
+
+
     }
 }

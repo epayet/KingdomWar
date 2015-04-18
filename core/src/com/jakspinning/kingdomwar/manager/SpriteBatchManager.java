@@ -10,6 +10,6 @@ public class SpriteBatchManager extends Manager{
     public SpriteBatch spriteBatch;
 
     public SpriteBatchManager() {
-        spriteBatch = new SpriteBatch();
+        spriteBatch = new SpriteBatch();        
     }
 }

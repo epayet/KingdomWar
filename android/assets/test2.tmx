@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<map version="1.0" orientation="hexagonal" renderorder="right-down" width="50" height="100" tilewidth="65" tileheight="89" hexsidelength="0" staggeraxis="y" staggerindex="odd" nextobjectid="1">
+ <tileset firstgid="1" source="Tiles/fullTiles.tsx"/>
+ <layer name="Calque de Tile 1" width="50" height="100">
+  <data encoding="base64" compression="zlib">
+   eJzt1DEKADEIBEDT5fL/BwfhipA2lTID27uIRgCv5pWKcu51pHqP70/FLmeHEXV7pA77SF3uI3X4VwAAAAAAAAAAAAAAAAAAAAAAnW2kkgFA
+  </data>
+ </layer>
+ <layer name="Calque 2" width="50" height="100">
+  <data encoding="base64" compression="zlib">
+   eJztz8EJADAIBEGJ/ffsxxICmjAD+7+LAGCrMz3gkuxe98MHAAAAAAAAAAAAAAAAAAAAAAB2K2I1AAw=
+  </data>
+ </layer>
+</map>

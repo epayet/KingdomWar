@@ -5,10 +5,16 @@ import com.artemis.ComponentMapper;
 import com.artemis.Entity;
 import com.artemis.annotations.Wire;
 import com.artemis.systems.EntityProcessingSystem;
+import com.badlogic.gdx.maps.MapLayer;
+import com.badlogic.gdx.maps.tiled.TiledMapTile;
+import com.badlogic.gdx.maps.tiled.TiledMapTileLayer;
+import com.badlogic.gdx.maps.tiled.tiles.AnimatedTiledMapTile;
 import com.badlogic.gdx.math.Vector2;
+import com.jakspinning.kingdomwar.Constants;
 import com.jakspinning.kingdomwar.HexGridHelper;
 import com.jakspinning.kingdomwar.component.HexGridComponent;
-import com.jakspinning.kingdomwar.component.TextureComponent;
+import com.jakspinning.kingdomwar.manager.CameraManager;
+import com.jakspinning.kingdomwar.manager.PointyTopHexGridMapRenderer;
 import com.jakspinning.kingdomwar.manager.SpriteBatchManager;
 
 /**
@@ -16,44 +22,76 @@ import com.jakspinning.kingdomwar.manager.SpriteBatchManager;
  */
 @Wire
 public class GridRendererSystem extends EntityProcessingSystem{
+	PointyTopHexGridMapRenderer renderer;
+	SpriteBatchManager spriteBatchManager;
+	CameraManager cameraManager;
+	ComponentMapper<HexGridComponent> hexGridMapper;
 
-    SpriteBatchManager spriteBatchManager;
-    ComponentMapper<HexGridComponent> hexGridMapper;
-    ComponentMapper<TextureComponent> textureMapper;
+	/**
+	 * Creates a new EntityProcessingSystem.
+	 *
+	 * @param aspect the aspect to match entites
+	 */
+	@SuppressWarnings("unchecked")
+	public GridRendererSystem() {
+		super(Aspect.getAspectForAll(HexGridComponent.class));
+	}
 
-    /**
-     * Creates a new EntityProcessingSystem.
-     *
-     * @param aspect the aspect to match entites
-     */
-    public GridRendererSystem() {
-        super(Aspect.getAspectForAll(HexGridComponent.class));
-    }
+	@Override
+	protected void begin() {
+		super.begin();       
+		cameraManager.camera.update();
+		spriteBatchManager.spriteBatch.setProjectionMatrix(cameraManager.camera.combined);
+		spriteBatchManager.spriteBatch.begin();
+	}
 
-    @Override
-    protected void begin() {
-        super.begin();
-        spriteBatchManager.spriteBatch.begin();
-    }
+	@Override
+	protected void process(Entity e) {
+		HexGridComponent gridComponent = hexGridMapper.get(e);                
+		for (MapLayer layer : gridComponent.map.getLayers()) {
+			if(layer instanceof TiledMapTileLayer){
+				renderTileLayer((TiledMapTileLayer) layer);
+			}
+		}	
+	}
 
-    @Override
-    protected void process(Entity e) {
-        HexGridComponent gridComponent = hexGridMapper.get(e);
-        TextureComponent textureComponent = textureMapper.get(e);
-        for(int xGrid = 0;xGrid < gridComponent.width;xGrid++){
-            for(int yGrid = 0;yGrid < gridComponent.height;yGrid++){
-                float size = 25;
-                Vector2 position = HexGridHelper.toWorldCoord(xGrid,yGrid,size);
-                float h = size*2;
-                float w = (float)Math.sqrt(3)/2*h;
-                spriteBatchManager.spriteBatch.draw(textureComponent.texture, position.x, position.y,w,h);
-            }
-        }
-    }
+	public void renderTileLayer (TiledMapTileLayer layer) {
 
-    @Override
-    protected void end() {
-        super.end();
-        spriteBatchManager.spriteBatch.end();
-    }
+		final int layerWidth = layer.getWidth();
+		final int layerHeight = layer.getHeight();
+		final int layerZ =  Integer.parseInt(layer.getProperties().get("height").toString());
+		final float layerTileWidth = layer.getTileWidth();
+		final float layerTileHeight = layer.getTileHeight() - Constants.HEX_TILE_DEPTH ;
+
+
+		final int col1 = 0;
+		final int col2 = layerWidth;
+
+		final int row1 = 0;
+		final int row2 = layerHeight;
+
+
+		for (int row = row2; row > row1; row--) {
+			for (int col = col1; col < col2; col++) {	
+				Vector2 position = HexGridHelper.toWorldCoord(col, row, layerTileWidth, layerTileHeight);
+				final TiledMapTileLayer.Cell cell = layer.getCell(col, row);
+				if (cell == null) {
+					continue;
+				}
+				position.y += layerZ*Constants.HEX_TILE_DEPTH;
+
+				final TiledMapTile tile = cell.getTile();
+				if (tile != null) {
+					if (tile instanceof AnimatedTiledMapTile) continue;
+					spriteBatchManager.spriteBatch.draw(tile.getTextureRegion(), position.x , position.y);
+				}        
+			}
+		}
+	}
+
+	@Override
+	protected void end() {
+		super.end();
+		spriteBatchManager.spriteBatch.end();
+	}
 }
