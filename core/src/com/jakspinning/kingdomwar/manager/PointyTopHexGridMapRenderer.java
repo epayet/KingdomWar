@@ -8,7 +8,7 @@ import com.badlogic.gdx.maps.tiled.renderers.HexagonalTiledMapRenderer;
 import com.badlogic.gdx.maps.tiled.tiles.AnimatedTiledMapTile;
 import com.badlogic.gdx.math.Vector2;
 import com.jakspinning.kingdomwar.Constants;
-import com.jakspinning.kingdomwar.HexGridHelper;
+import com.jakspinning.kingdomwar.helper.HexGridHelper;
 
 public class PointyTopHexGridMapRenderer extends HexagonalTiledMapRenderer{
 

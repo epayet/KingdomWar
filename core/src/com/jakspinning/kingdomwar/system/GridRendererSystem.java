@@ -11,7 +11,7 @@ import com.badlogic.gdx.maps.tiled.TiledMapTileLayer;
 import com.badlogic.gdx.maps.tiled.tiles.AnimatedTiledMapTile;
 import com.badlogic.gdx.math.Vector2;
 import com.jakspinning.kingdomwar.Constants;
-import com.jakspinning.kingdomwar.HexGridHelper;
+import com.jakspinning.kingdomwar.helper.HexGridHelper;
 import com.jakspinning.kingdomwar.component.HexGridComponent;
 import com.jakspinning.kingdomwar.manager.CameraManager;
 import com.jakspinning.kingdomwar.manager.PointyTopHexGridMapRenderer;
