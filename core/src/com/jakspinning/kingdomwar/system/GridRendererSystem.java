@@ -5,24 +5,19 @@ import com.artemis.ComponentMapper;
 import com.artemis.Entity;
 import com.artemis.annotations.Wire;
 import com.artemis.systems.EntityProcessingSystem;
-import com.badlogic.gdx.maps.MapLayer;
-import com.badlogic.gdx.maps.tiled.TiledMapTile;
-import com.badlogic.gdx.maps.tiled.TiledMapTileLayer;
-import com.badlogic.gdx.maps.tiled.tiles.AnimatedTiledMapTile;
 import com.badlogic.gdx.math.Vector2;
 import com.jakspinning.kingdomwar.Constants;
-import com.jakspinning.kingdomwar.map.HexGridHelper;
 import com.jakspinning.kingdomwar.component.MapComponent;
 import com.jakspinning.kingdomwar.manager.CameraManager;
-import com.jakspinning.kingdomwar.manager.PointyTopHexGridMapRenderer;
 import com.jakspinning.kingdomwar.manager.SpriteBatchManager;
+import com.jakspinning.kingdomwar.map.HexGridHelper;
+import com.jakspinning.kingdomwar.map.HexTile;
 
 /**
  * Created by emmanuel_payet on 16/04/15.
  */
 @Wire
 public class GridRendererSystem extends EntityProcessingSystem{
-	PointyTopHexGridMapRenderer renderer;
 	SpriteBatchManager spriteBatchManager;
 	CameraManager cameraManager;
 	ComponentMapper<MapComponent> hexGridMapper;
@@ -47,47 +42,25 @@ public class GridRendererSystem extends EntityProcessingSystem{
 
 	@Override
 	protected void process(Entity e) {
-		MapComponent gridComponent = hexGridMapper.get(e);
-		for (MapLayer layer : gridComponent..getLayers()) {
-			if(layer instanceof TiledMapTileLayer){
-				renderTileLayer((TiledMapTileLayer) layer);
-			}
-		}	
-	}
-
-	public void renderTileLayer (TiledMapTileLayer layer) {
-
-		final int layerWidth = layer.getWidth();
-		final int layerHeight = layer.getHeight();
-		final int layerZ =  Integer.parseInt(layer.getProperties().get("height").toString());
-		final float layerTileWidth = layer.getTileWidth();
-		final float layerTileHeight = layer.getTileHeight() - Constants.HEX_TILE_DEPTH ;
-
-
-		final int col1 = 0;
-		final int col2 = layerWidth;
-
-		final int row1 = 0;
-		final int row2 = layerHeight;
-
-
-		for (int row = row2; row > row1; row--) {
-			for (int col = col1; col < col2; col++) {	
-				Vector2 position = HexGridHelper.toWorldCoord(col, row, layerTileWidth, layerTileHeight);
-				final TiledMapTileLayer.Cell cell = layer.getCell(col, row);
-				if (cell == null) {
-					continue;
+		MapComponent mapComponent = hexGridMapper.get(e);
+		int h = mapComponent.mapHeight;
+		int w = mapComponent.mapWidth;
+		for(int y = h-1;y >= 0 ;y--){
+			for(int x = 0; x < w;x++){
+				HexTile tile = mapComponent.getTile(x,y);
+				if(tile != null){
+					Vector2 position = HexGridHelper.toWorldCoord(x, y,tile.height, Constants.HEX_TILE_W,Constants.HEX_TILE_H,Constants.HEX_TILE_DEPTH);
+					//System.out.print("1, ");
+					spriteBatchManager.spriteBatch.draw(tile.texture, position.x , position.y);
+				}else {
+					//System.out.print("0, ");
 				}
-				position.y += layerZ*Constants.HEX_TILE_DEPTH;
-
-				final TiledMapTile tile = cell.getTile();
-				if (tile != null) {
-					if (tile instanceof AnimatedTiledMapTile) continue;
-					spriteBatchManager.spriteBatch.draw(tile.getTextureRegion(), position.x , position.y);
-				}        
 			}
+			//System.out.println("");
 		}
+		//System.out.println("================================");
 	}
+
 
 	@Override
 	protected void end() {
