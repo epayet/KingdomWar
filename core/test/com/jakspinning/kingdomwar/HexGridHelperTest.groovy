@@ -1,7 +1,7 @@
 package com.jakspinning.kingdomwar
 
 import com.badlogic.gdx.math.Vector2
-import com.jakspinning.kingdomwar.helper.HexGridHelper
+import com.jakspinning.kingdomwar.map.HexGridHelper
 import spock.lang.Specification
 
 /**

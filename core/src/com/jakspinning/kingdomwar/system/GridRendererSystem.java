@@ -11,8 +11,8 @@ import com.badlogic.gdx.maps.tiled.TiledMapTileLayer;
 import com.badlogic.gdx.maps.tiled.tiles.AnimatedTiledMapTile;
 import com.badlogic.gdx.math.Vector2;
 import com.jakspinning.kingdomwar.Constants;
-import com.jakspinning.kingdomwar.helper.HexGridHelper;
-import com.jakspinning.kingdomwar.component.HexGridComponent;
+import com.jakspinning.kingdomwar.map.HexGridHelper;
+import com.jakspinning.kingdomwar.component.MapComponent;
 import com.jakspinning.kingdomwar.manager.CameraManager;
 import com.jakspinning.kingdomwar.manager.PointyTopHexGridMapRenderer;
 import com.jakspinning.kingdomwar.manager.SpriteBatchManager;
@@ -25,7 +25,7 @@ public class GridRendererSystem extends EntityProcessingSystem{
 	PointyTopHexGridMapRenderer renderer;
 	SpriteBatchManager spriteBatchManager;
 	CameraManager cameraManager;
-	ComponentMapper<HexGridComponent> hexGridMapper;
+	ComponentMapper<MapComponent> hexGridMapper;
 
 	/**
 	 * Creates a new EntityProcessingSystem.
@@ -34,7 +34,7 @@ public class GridRendererSystem extends EntityProcessingSystem{
 	 */
 	@SuppressWarnings("unchecked")
 	public GridRendererSystem() {
-		super(Aspect.getAspectForAll(HexGridComponent.class));
+		super(Aspect.getAspectForAll(MapComponent.class));
 	}
 
 	@Override
@@ -47,8 +47,8 @@ public class GridRendererSystem extends EntityProcessingSystem{
 
 	@Override
 	protected void process(Entity e) {
-		HexGridComponent gridComponent = hexGridMapper.get(e);                
-		for (MapLayer layer : gridComponent.map.getLayers()) {
+		MapComponent gridComponent = hexGridMapper.get(e);
+		for (MapLayer layer : gridComponent..getLayers()) {
 			if(layer instanceof TiledMapTileLayer){
 				renderTileLayer((TiledMapTileLayer) layer);
 			}

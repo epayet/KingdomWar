@@ -10,12 +10,13 @@ import com.badlogic.gdx.graphics.OrthographicCamera;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.maps.tiled.TiledMap;
 import com.badlogic.gdx.maps.tiled.TmxMapLoader;
-import com.jakspinning.kingdomwar.component.HexGridComponent;
+import com.jakspinning.kingdomwar.component.MapComponent;
 import com.jakspinning.kingdomwar.component.PositionComponent;
 import com.jakspinning.kingdomwar.component.TextureComponent;
-import com.jakspinning.kingdomwar.helper.HexGridHelper;
+import com.jakspinning.kingdomwar.map.HexGridHelper;
 import com.jakspinning.kingdomwar.manager.CameraManager;
 import com.jakspinning.kingdomwar.manager.SpriteBatchManager;
+import com.jakspinning.kingdomwar.map.TiledMapLoader;
 import com.jakspinning.kingdomwar.system.GridRendererSystem;
 import com.jakspinning.kingdomwar.system.PrepareGraphicSystem;
 import com.jakspinning.kingdomwar.system.RendererSystem;
@@ -39,9 +40,9 @@ public class KingdomWarGame extends ApplicationAdapter {
 
         world.initialize();
 
-        TiledMap tmap = new TmxMapLoader().load("test.tmx");
+
         Entity map = new EntityBuilder(world)
-                .with(new HexGridComponent(tmap))
+                .with(new MapComponent(TiledMapLoader.loadMap("test.tmx")))
                 .with(new TextureComponent(new Texture("Tiles/tileGrass.png")))
                 .build();
 

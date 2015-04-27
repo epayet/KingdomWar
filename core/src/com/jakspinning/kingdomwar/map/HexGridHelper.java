@@ -1,4 +1,4 @@
-package com.jakspinning.kingdomwar.helper;
+package com.jakspinning.kingdomwar.map;
 
 import com.badlogic.gdx.math.Vector2;
 
