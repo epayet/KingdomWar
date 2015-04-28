@@ -14,6 +14,8 @@ import com.jakspinning.kingdomwar.manager.CameraManager;
 import com.jakspinning.kingdomwar.manager.SpriteBatchManager;
 import com.jakspinning.kingdomwar.map.HexGridHelper;
 import com.jakspinning.kingdomwar.map.TiledMapLoader;
+import com.jakspinning.kingdomwar.map.tmx.ITmxMapLoader;
+import com.jakspinning.kingdomwar.map.tmx.LibgdxTmxMapLoader;
 import com.jakspinning.kingdomwar.system.GridRendererSystem;
 import com.jakspinning.kingdomwar.system.PrepareGraphicSystem;
 import com.jakspinning.kingdomwar.system.RendererSystem;
@@ -38,8 +40,11 @@ public class KingdomWarGame extends ApplicationAdapter {
         world.initialize();
 
 
+        LibgdxTmxMapLoader libgdxTmxMapLoader = new LibgdxTmxMapLoader();
+        TiledMapLoader tiledMapLoader = new TiledMapLoader(libgdxTmxMapLoader);
+
         Entity map = new EntityBuilder(world)
-                .with(TiledMapLoader.loadMap("test.tmx"))
+                .with(tiledMapLoader.loadMap("test.tmx"))
                 .build();
 
         Entity perso = new EntityBuilder(world)

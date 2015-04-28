@@ -9,16 +9,24 @@ import com.badlogic.gdx.maps.tiled.TmxMapLoader;
 import com.badlogic.gdx.utils.Array;
 import com.jakspinning.kingdomwar.Constants;
 import com.jakspinning.kingdomwar.component.MapComponent;
+import com.jakspinning.kingdomwar.map.tmx.ITmxMapLoader;
 
 /**
  * Created by emmanuel_payet on 27/04/15.
  */
 public class TiledMapLoader {
 
-	public static MapComponent loadMap(String path){		
+	private ITmxMapLoader tmxMapLoader;
+
+	public TiledMapLoader(ITmxMapLoader tmxMapLoader) {
+		this.tmxMapLoader = tmxMapLoader;
+	}
+
+	public MapComponent loadMap(String path){
 		Array<Array<HexTile>> tiles = new Array<Array<HexTile>>();
-		TiledMap tmap = new TmxMapLoader().load("test.tmx");
-		MapLayers layers = tmap.getLayers();
+		TiledMap tiledMap = tmxMapLoader.load(path);
+		MapLayers layers = tiledMap.getLayers();
+
 		//        List<MapLayer> layerList = new ArrayList<MapLayer>();
 		//        for (MapLayer layer : layers){
 		//            layerList.add(layer);
