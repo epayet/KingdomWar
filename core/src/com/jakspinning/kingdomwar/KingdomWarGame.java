@@ -3,6 +3,7 @@ package com.jakspinning.kingdomwar;
 import com.artemis.Entity;
 import com.artemis.World;
 import com.artemis.utils.EntityBuilder;
+import com.badlogic.gdx.Application;
 import com.badlogic.gdx.ApplicationAdapter;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Input;
@@ -37,16 +38,20 @@ public class KingdomWarGame extends ApplicationAdapter {
 
         world.initialize();
 
-
         Entity map = new EntityBuilder(world)
                 .with(TiledMapLoader.loadMap("test.tmx"))
                 .build();
 
         Entity perso = new EntityBuilder(world)
                 .with(new PositionComponent(HexGridHelper.toHexCenterWorldCoord(1, 1, Constants.HEX_TILE_W, Constants.HEX_TILE_H, Constants.HEX_TILE_DEPTH)))
-                        .with(new TextureComponent(new Texture("Tiles/alienBlue.png")))
+                .with(new TextureComponent(new Texture("Tiles/alienBlue.png")))
                 .build();
-	}
+
+        Entity selectedTile = new EntityBuilder(world)
+                .with(new PositionComponent(HexGridHelper.toHexCenterWorldCoord(0, 2, Constants.HEX_TILE_W, Constants.HEX_TILE_H, Constants.HEX_TILE_DEPTH)))
+                .with(new TextureComponent(new Texture("Tiles/tileSelected.png")))
+                .build();
+    }
 
 	@Override
 	public void render () {
@@ -55,7 +60,6 @@ public class KingdomWarGame extends ApplicationAdapter {
 		cameraManager.camera.update();
         world.setDelta(Gdx.graphics.getDeltaTime());
         world.process();
-        
     }
 	
 	private void handleInput(OrthographicCamera cam) {
@@ -63,7 +67,7 @@ public class KingdomWarGame extends ApplicationAdapter {
             cam.zoom += 0.02;
         }
         if (Gdx.input.isKeyPressed(Input.Keys.Q)) {
-            cam.zoom -= 0.02;
+            cam.zoom -= 0.04;
         }
         if (Gdx.input.isKeyPressed(Input.Keys.LEFT)) {
             cam.translate(-3, 0, 0);
