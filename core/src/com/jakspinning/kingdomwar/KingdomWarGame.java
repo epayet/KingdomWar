@@ -42,14 +42,14 @@ public class KingdomWarGame extends ApplicationAdapter {
                 .with(TiledMapLoader.loadMap("test.tmx"))
                 .build();
 
+        Entity selectedTile = new EntityBuilder(world)
+                .with(new PositionComponent(HexGridHelper.toHexCenterWorldCoord(0, 2, Constants.HEX_TILE_W, Constants.HEX_TILE_H, Constants.HEX_TILE_DEPTH / 2)))
+                .with(new TextureComponent(new Texture("Tiles/tileSelected.png")))
+                .build();
+
         Entity perso = new EntityBuilder(world)
                 .with(new PositionComponent(HexGridHelper.toHexCenterWorldCoord(1, 1, Constants.HEX_TILE_W, Constants.HEX_TILE_H, Constants.HEX_TILE_DEPTH)))
                 .with(new TextureComponent(new Texture("Tiles/alienBlue.png")))
-                .build();
-
-        Entity selectedTile = new EntityBuilder(world)
-                .with(new PositionComponent(HexGridHelper.toHexCenterWorldCoord(0, 2, Constants.HEX_TILE_W, Constants.HEX_TILE_H, Constants.HEX_TILE_DEPTH)))
-                .with(new TextureComponent(new Texture("Tiles/tileSelected.png")))
                 .build();
     }
 
@@ -67,7 +67,7 @@ public class KingdomWarGame extends ApplicationAdapter {
             cam.zoom += 0.02;
         }
         if (Gdx.input.isKeyPressed(Input.Keys.Q)) {
-            cam.zoom -= 0.04;
+            cam.zoom -= 0.02;
         }
         if (Gdx.input.isKeyPressed(Input.Keys.LEFT)) {
             cam.translate(-3, 0, 0);

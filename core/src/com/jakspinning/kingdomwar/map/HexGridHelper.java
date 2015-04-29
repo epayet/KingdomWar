@@ -1,6 +1,10 @@
 package com.jakspinning.kingdomwar.map;
 
+import com.badlogic.gdx.graphics.OrthographicCamera;
 import com.badlogic.gdx.math.Vector2;
+import com.badlogic.gdx.math.Vector3;
+import com.jakspinning.kingdomwar.Constants;
+import com.jakspinning.kingdomwar.component.MapComponent;
 
 /**
  * Created by emmanuel_payet on 16/04/15.
@@ -17,6 +21,12 @@ public class HexGridHelper {
 
         float y = yGrid * h * 3 / 4f + h / 2 + depth;
         float x = xGrid * w + w / 2f - yGrid % 2 * w / 2;
+        return new Vector2(x, y);
+    }
+
+    public static Vector2 getWorldCoordinatesFromScreenCoordinates(int screenX, int screenY, int screenWidth, int screenHeight, Vector3 cameraPosition) {
+        int x = (int) (screenX - screenWidth / 2 + cameraPosition.x);
+        int y = (int) (- screenY + screenHeight / 2 + cameraPosition.y);
         return new Vector2(x, y);
     }
 }
