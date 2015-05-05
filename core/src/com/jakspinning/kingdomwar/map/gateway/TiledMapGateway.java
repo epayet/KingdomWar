@@ -1,0 +1,38 @@
+package com.jakspinning.kingdomwar.map.gateway;
+
+import com.badlogic.gdx.maps.MapLayer;
+import com.badlogic.gdx.maps.tiled.TiledMap;
+import com.badlogic.gdx.maps.tiled.TiledMapTileLayer;
+
+import java.util.ArrayList;
+import java.util.List;
+
+/**
+ * Created by emmanuel_payet on 05/05/15.
+ */
+public class TiledMapGateway {
+    public int mapH = 0;
+    public int mapW = 0;
+    public List<TiledMapLayerGateway> layers;
+
+    public TiledMapGateway(TiledMap tiledMap) {
+        List<TiledMapLayerGateway> layersGateway = new ArrayList<TiledMapLayerGateway>();
+        for (MapLayer mapLayer : tiledMap.getLayers()) {
+            if(mapLayer instanceof TiledMapTileLayer) {
+                layersGateway.add(new TiledMapLayerGateway((TiledMapTileLayer) mapLayer));
+            }
+        }
+        computeMapSize(layersGateway);
+    }
+
+    private void computeMapSize(List<TiledMapLayerGateway> tiledMapLayerGateway) {
+        this.layers = tiledMapLayerGateway;
+
+        for (TiledMapLayerGateway layerGateway : tiledMapLayerGateway) {
+            final int layerWidth = layerGateway.width;
+            final int layerHeight = layerGateway.height;
+            mapH = Math.max(mapH, layerHeight);
+            mapW = Math.max(mapW, layerWidth);
+        }
+    }
+}

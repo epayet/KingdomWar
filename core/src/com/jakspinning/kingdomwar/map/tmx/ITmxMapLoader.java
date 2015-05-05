@@ -1,10 +1,10 @@
 package com.jakspinning.kingdomwar.map.tmx;
 
-import com.badlogic.gdx.maps.tiled.TiledMap;
+import com.jakspinning.kingdomwar.map.gateway.TiledMapGateway;
 
 /**
  * Created by emmanuel_payet on 28/04/15.
  */
 public interface ITmxMapLoader {
-    TiledMap load(String path);
+    TiledMapGateway load(String path);
 }

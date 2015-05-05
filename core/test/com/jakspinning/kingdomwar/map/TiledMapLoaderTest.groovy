@@ -1,6 +1,8 @@
 package com.jakspinning.kingdomwar.map
 
 import com.jakspinning.kingdomwar.component.MapComponent
+import com.jakspinning.kingdomwar.map.gateway.TiledMapGateway
+import com.jakspinning.kingdomwar.map.tmx.TmxMapLoaderMock
 import spock.lang.Specification
 
 /**
@@ -12,8 +14,12 @@ class TiledMapLoaderTest extends Specification {
         int mapHeight = 2
         int mapWidth = 2
 
+        TiledMapGateway tiledMapGateway = new TiledMapGateway()
+        TmxMapLoaderMock tmxMapLoaderMock = new TmxMapLoaderMock(tiledMapGateway)
+        TiledMapLoader tiledMapLoader = new TiledMapLoader(tmxMapLoaderMock)
+
         when:
-        MapComponent mapComponent = TiledMapLoader.loadMap('test.tmx')
+        MapComponent mapComponent = tiledMapLoader.loadMap('test.tmx')
 
         then:
         mapComponent.mapHeight == mapHeight
