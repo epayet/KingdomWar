@@ -1,10 +1,7 @@
 package com.jakspinning.kingdomwar.map;
 
-import com.badlogic.gdx.graphics.OrthographicCamera;
 import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.math.Vector3;
-import com.jakspinning.kingdomwar.Constants;
-import com.jakspinning.kingdomwar.component.MapComponent;
 
 /**
  * Created by emmanuel_payet on 16/04/15.
@@ -24,9 +21,50 @@ public class HexGridHelper {
         return new Vector2(x, y);
     }
 
-    public static Vector2 getWorldCoordinatesFromScreenCoordinates(int screenX, int screenY, int screenWidth, int screenHeight, Vector3 cameraPosition) {
-        int x = (int) (screenX - screenWidth / 2 + cameraPosition.x);
-        int y = (int) (- screenY + screenHeight / 2 + cameraPosition.y);
-        return new Vector2(x, y);
+    /**
+     * even-r conversion
+     */
+    public static Vector3 hexToCube(Vector2 hex) {
+        int x = (int) (hex.x - (hex.y + ((int) hex.y & 1)) / 2);
+        int z = (int) hex.y;
+        int y = - x - z;
+        return new Vector3(x, y, z);
+    }
+
+    /**
+     * even-r conversion
+     */
+    public static Vector2 cubeToHex(Vector3 cube) {
+        int q = (int) (cube.x + (cube.z + ((int) cube.z & 1)) / 2);
+        int r = (int) cube.z;
+        return new Vector2(q, r);
+    }
+
+    public static Vector2 pixelToHex(int x, int y, int size) {
+        int q = (int) ((x * Math.sqrt(3) / 3 - y / 3) / size);
+        int r = y * 2 / 3 / size;
+        return roundHex(new Vector2(q, r));
+    }
+
+    public static Vector2 roundHex(Vector2 hex) {
+        return cubeToHex(roundCube(hexToCube(hex)));
+    }
+
+    public static Vector3 roundCube(Vector3 cube) {
+        int rx = Math.round(cube.x);
+        int ry = Math.round(cube.y);
+        int rz = Math.round(cube.z);
+        int xDiff = (int) Math.abs(rx - cube.x);
+        int yDiff = (int) Math.abs(ry - cube.y);
+        int zDiff = (int) Math.abs(rz - cube.z);
+
+        if (xDiff > yDiff && xDiff > zDiff) {
+            rx = - ry - rz;
+        } else if (yDiff > zDiff) {
+            ry = - rx - rz;
+        } else {
+            rz = - rx - ry;
+        }
+        return new Vector3(rx, ry, rz);
     }
 }
