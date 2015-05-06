@@ -10,10 +10,16 @@ public class CellGateway {
     private TextureRegion tileTextureRegion;
 
     public CellGateway(TiledMapTileLayer.Cell cell) {
-        tileTextureRegion = cell.getTile().getTextureRegion();
+        if (cell != null) {
+            tileTextureRegion = cell.getTile().getTextureRegion();
+        }
     }
 
     public TextureRegion getTileTextureRegion() {
         return tileTextureRegion;
+    }
+
+    public boolean isEmpty() {
+        return tileTextureRegion == null;
     }
 }

@@ -34,7 +34,7 @@ public class TiledMapLoader {
 			for (int row = mapH - 1; row >= 0; row--) {
 				for (int col = 0; col < mapW; col++) {
 					final CellGateway cellGateway = layerGateway.getCellGateway(col, row);
-					if (cellGateway != null) {
+					if (!cellGateway.isEmpty()) {
 						tiles.get(col).set(row, new HexTile(altitude, cellGateway.getTileTextureRegion()));
 					}
 				}
