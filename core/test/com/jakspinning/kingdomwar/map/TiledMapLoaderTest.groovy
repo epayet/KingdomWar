@@ -2,6 +2,7 @@ package com.jakspinning.kingdomwar.map
 
 import com.jakspinning.kingdomwar.component.MapComponent
 import com.jakspinning.kingdomwar.map.gateway.TiledMapGateway
+import com.jakspinning.kingdomwar.map.gateway.TiledMapLayerGateway
 import com.jakspinning.kingdomwar.map.tmx.TmxMapLoaderMock
 import spock.lang.Specification
 
@@ -11,10 +12,13 @@ import spock.lang.Specification
 class TiledMapLoaderTest extends Specification {
     def "loadMap"() {
         given:
-        int mapHeight = 2
-        int mapWidth = 2
-
         TiledMapGateway tiledMapGateway = new TiledMapGateway()
+        tiledMapGateway.layers = new ArrayList<TiledMapLayerGateway>()
+        tiledMapGateway.mapH = tiledMapGateway.mapW = 1
+
+        def tiledMapLayerGateway = new TiledMapLayerGateway()
+        tiledMapGateway.layers.add(tiledMapLayerGateway)
+
         TmxMapLoaderMock tmxMapLoaderMock = new TmxMapLoaderMock(tiledMapGateway)
         TiledMapLoader tiledMapLoader = new TiledMapLoader(tmxMapLoaderMock)
 
@@ -22,8 +26,8 @@ class TiledMapLoaderTest extends Specification {
         MapComponent mapComponent = tiledMapLoader.loadMap('test.tmx')
 
         then:
-        mapComponent.mapHeight == mapHeight
-        mapComponent.mapWidth == mapWidth
-        mapComponent.tiles.size == mapWidth
+        mapComponent.mapHeight == 1
+        mapComponent.mapWidth == 1
+        mapComponent.tiles.size == 1
     }
 }

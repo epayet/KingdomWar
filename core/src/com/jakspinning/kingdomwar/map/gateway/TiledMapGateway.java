@@ -15,6 +15,10 @@ public class TiledMapGateway {
     public int mapW = 0;
     public List<TiledMapLayerGateway> layers;
 
+    public TiledMapGateway() {
+
+    }
+
     public TiledMapGateway(TiledMap tiledMap) {
         List<TiledMapLayerGateway> layersGateway = new ArrayList<TiledMapLayerGateway>();
         for (MapLayer mapLayer : tiledMap.getLayers()) {
