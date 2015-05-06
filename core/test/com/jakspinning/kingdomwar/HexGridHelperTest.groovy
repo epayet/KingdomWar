@@ -13,12 +13,14 @@ class HexGridHelperTest extends Specification {
         int xGrid = 10
         int yGrid = 5
         float size = 1
+        def depth = 1
+        int zGrid = 5
 
         when:
-        Vector2 pos = HexGridHelper.toWorldCoord(xGrid,yGrid,size, size)
+        Vector2 pos = HexGridHelper.toWorldCoord(xGrid,yGrid,zGrid, size, size, depth)
 
         then:
-        Math.round(pos.x) == 11
-        Math.round(pos.y) == 4
+        Math.round(pos.x) == 10
+        Math.round(pos.y) == 9
     }
 }

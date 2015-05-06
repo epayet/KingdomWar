@@ -20,7 +20,7 @@ import com.jakspinning.kingdomwar.map.HexTile;
 public class GridRendererSystem extends EntityProcessingSystem{
 	SpriteBatchManager spriteBatchManager;
 	CameraManager cameraManager;
-	ComponentMapper<MapComponent> hexGridMapper;
+	ComponentMapper<MapComponent> mapComponentMapper;
 
 	/**
 	 * Creates a new EntityProcessingSystem.
@@ -42,7 +42,7 @@ public class GridRendererSystem extends EntityProcessingSystem{
 
 	@Override
 	protected void process(Entity e) {
-		MapComponent mapComponent = hexGridMapper.get(e);
+		MapComponent mapComponent = mapComponentMapper.get(e);
 		int h = mapComponent.mapHeight;
 		int w = mapComponent.mapWidth;
 		for(int y = h-1;y >= 0 ;y--){

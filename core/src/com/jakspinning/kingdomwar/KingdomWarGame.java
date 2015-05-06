@@ -15,6 +15,8 @@ import com.jakspinning.kingdomwar.manager.CameraManager;
 import com.jakspinning.kingdomwar.manager.SpriteBatchManager;
 import com.jakspinning.kingdomwar.map.HexGridHelper;
 import com.jakspinning.kingdomwar.map.TiledMapLoader;
+import com.jakspinning.kingdomwar.map.tmx.ITmxMapLoader;
+import com.jakspinning.kingdomwar.map.tmx.LibgdxTmxMapLoader;
 import com.jakspinning.kingdomwar.system.GridRendererSystem;
 import com.jakspinning.kingdomwar.system.PrepareGraphicSystem;
 import com.jakspinning.kingdomwar.system.RendererSystem;
@@ -38,20 +40,19 @@ public class KingdomWarGame extends ApplicationAdapter {
 
         world.initialize();
 
+
+        LibgdxTmxMapLoader libgdxTmxMapLoader = new LibgdxTmxMapLoader();
+        TiledMapLoader tiledMapLoader = new TiledMapLoader(libgdxTmxMapLoader);
+
         Entity map = new EntityBuilder(world)
-                .with(TiledMapLoader.loadMap("test.tmx"))
+                .with(tiledMapLoader.loadMap("test.tmx"))
                 .build();
 
         Entity perso = new EntityBuilder(world)
                 .with(new PositionComponent(HexGridHelper.toHexCenterWorldCoord(1, 1, Constants.HEX_TILE_W, Constants.HEX_TILE_H, Constants.HEX_TILE_DEPTH)))
-                .with(new TextureComponent(new Texture("Tiles/alienBlue.png")))
+                        .with(new TextureComponent(new Texture("Tiles/alienBlue.png")))
                 .build();
-
-        Entity selectedTile = new EntityBuilder(world)
-                .with(new PositionComponent(HexGridHelper.toHexCenterWorldCoord(0, 2, Constants.HEX_TILE_W, Constants.HEX_TILE_H, Constants.HEX_TILE_DEPTH)))
-                .with(new TextureComponent(new Texture("Tiles/tileSelected.png")))
-                .build();
-    }
+	}
 
 	@Override
 	public void render () {
@@ -60,6 +61,7 @@ public class KingdomWarGame extends ApplicationAdapter {
 		cameraManager.camera.update();
         world.setDelta(Gdx.graphics.getDeltaTime());
         world.process();
+        
     }
 	
 	private void handleInput(OrthographicCamera cam) {
@@ -67,7 +69,7 @@ public class KingdomWarGame extends ApplicationAdapter {
             cam.zoom += 0.02;
         }
         if (Gdx.input.isKeyPressed(Input.Keys.Q)) {
-            cam.zoom -= 0.04;
+            cam.zoom -= 0.02;
         }
         if (Gdx.input.isKeyPressed(Input.Keys.LEFT)) {
             cam.translate(-3, 0, 0);
