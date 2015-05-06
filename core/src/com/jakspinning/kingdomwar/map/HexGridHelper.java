@@ -22,9 +22,9 @@ public class HexGridHelper {
     }
 
     /**
-     * even-r conversion
+     * even-r conversion offset to cube
      */
-    public static Vector3 hexToCube(Vector2 hex) {
+    public static Vector3 hexOffsetToCube(Vector2 hex) {
         int x = (int) (hex.x - (hex.y + ((int) hex.y & 1)) / 2);
         int z = (int) hex.y;
         int y = - x - z;
@@ -32,22 +32,37 @@ public class HexGridHelper {
     }
 
     /**
-     * even-r conversion
+     * even-r conversion offset to cube
      */
-    public static Vector2 cubeToHex(Vector3 cube) {
+    public static Vector2 cubeToHexOffset(Vector3 cube) {
         int q = (int) (cube.x + (cube.z + ((int) cube.z & 1)) / 2);
         int r = (int) cube.z;
         return new Vector2(q, r);
     }
 
+    /**
+     * conversion axial to cube
+     */
+    public static Vector3 hexAxialToCube(Vector2 hex) {
+        return new Vector3(hex.x, - hex.x - hex.y, hex.y);
+    }
+
+    /**
+     * conversion cube to axial
+     */
+    public static Vector2 cubeToHexAxial(Vector3 cube) {
+        return new Vector2(cube.x, cube.z);
+    }
+
     public static Vector2 pixelToHex(int x, int y, int size) {
         int q = (int) ((x * Math.sqrt(3) / 3 - y / 3) / size);
         int r = y * 2 / 3 / size;
-        return roundHex(new Vector2(q, r));
+        Vector2 axial = new Vector2(q, r);
+        return cubeToHexOffset(roundCube(hexAxialToCube(axial)));
     }
 
     public static Vector2 roundHex(Vector2 hex) {
-        return cubeToHex(roundCube(hexToCube(hex)));
+        return cubeToHexOffset(roundCube(hexOffsetToCube(hex)));
     }
 
     public static Vector3 roundCube(Vector3 cube) {
