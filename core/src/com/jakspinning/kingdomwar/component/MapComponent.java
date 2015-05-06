@@ -2,7 +2,10 @@ package com.jakspinning.kingdomwar.component;
 
 import com.artemis.Component;
 import com.badlogic.gdx.utils.Array;
+import com.jakspinning.kingdomwar.map.GridPosition;
 import com.jakspinning.kingdomwar.map.HexTile;
+
+import java.util.ArrayList;
 
 /**
  * Created by emmanuel_payet on 16/04/15.
@@ -36,6 +39,11 @@ public class MapComponent extends Component{
 	}
 
 
+	public ArrayList<GridPosition> getNeighbors(GridPosition key) {
+		return new ArrayList<GridPosition>();
+	}
 
-
+	public Integer getCost(GridPosition current, GridPosition neighbor) {
+		return 0;
+	}
 }

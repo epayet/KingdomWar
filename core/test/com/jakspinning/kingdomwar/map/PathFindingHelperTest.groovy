@@ -9,7 +9,7 @@ import spock.lang.Specification
 class PathFindingHelperTest extends Specification {
     def "getPath: simple"() {
         given:
-        MapComponent map = new MapComponent();
+        MapComponent map = new MapComponent(HexGridHelper.initializeTiles(2, 2), 2, 2);
         GridPosition from = new GridPosition(0,0)
         GridPosition to = new GridPosition(1,0)
 
