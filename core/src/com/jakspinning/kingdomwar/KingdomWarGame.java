@@ -52,7 +52,6 @@ public class KingdomWarGame extends ApplicationAdapter {
                 .with(new PositionComponent(HexGridHelper.toHexCenterWorldCoord(1, 1, Constants.HEX_TILE_W, Constants.HEX_TILE_H, Constants.HEX_TILE_DEPTH)))
                 .with(new TextureComponent(new Texture("Tiles/alienBlue.png")))
                 .build();
-	}
 
         Entity selectedTile = new EntityBuilder(world)
                 .with(new PositionComponent(HexGridHelper.toHexCenterWorldCoord(0, 2, Constants.HEX_TILE_W, Constants.HEX_TILE_H, Constants.HEX_TILE_DEPTH)))
