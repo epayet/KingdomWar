@@ -29,7 +29,7 @@ public class TiledMapLoader {
 		int mapH = tiledMapGateway.mapH, mapW = tiledMapGateway.mapW;
 		Array<Array<HexTile>> tiles = HexGridHelper.initializeTiles(mapW, mapH);
 
-		for(TiledMapLayerGateway layerGateway : tiledMapGateway.layers) {
+		for(TiledMapLayerGateway layerGateway : tiledMapGateway.layersGateway) {
 			final int altitude = layerGateway.altitude;
 			for (int row = mapH - 1; row >= 0; row--) {
 				for (int col = 0; col < mapW; col++) {
