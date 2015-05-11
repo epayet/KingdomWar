@@ -6,6 +6,7 @@ import com.jakspinning.kingdomwar.map.GridPosition;
 import com.jakspinning.kingdomwar.map.HexTile;
 
 import java.util.ArrayList;
+import java.util.List;
 
 /**
  * Created by emmanuel_payet on 16/04/15.
@@ -36,11 +37,6 @@ public class MapComponent extends Component{
 		}
 		return null;
 		
-	}
-
-
-	public ArrayList<GridPosition> getNeighbors(GridPosition key) {
-		return new ArrayList<GridPosition>();
 	}
 
 	public Integer getCost(GridPosition current, GridPosition neighbor) {

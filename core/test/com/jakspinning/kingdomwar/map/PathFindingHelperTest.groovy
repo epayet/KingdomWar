@@ -23,4 +23,40 @@ class PathFindingHelperTest extends Specification {
         path.get(1).x == 1
         path.get(1).y == 0
     }
+
+    def "computeDistance: neighbor X"(){
+        given:
+        GridPosition from = new GridPosition(0,0)
+        GridPosition right = new GridPosition(1,0)
+        GridPosition left = new GridPosition(-1,0)
+
+        when:
+        int distanceRight = PathFindingHelper.getDistance(from, right)
+        int distanceLeft = PathFindingHelper.getDistance(from, left)
+        then:
+        distanceRight == 1
+        distanceLeft == 1
+    }
+    //TODO MANU split les tests
+    def "computeDistance: neighbor Y"(){
+        given:
+        GridPosition from = new GridPosition(0,0)
+        GridPosition upLeft = new GridPosition(0,1)
+        GridPosition downRight = new GridPosition(0,-1)
+        GridPosition upRight = new GridPosition(1,-1)
+        GridPosition downLeft = new GridPosition(-1,1)
+
+        when:
+        int distanceUpLeft = PathFindingHelper.getDistance(from, upLeft)
+        int distanceUpRight = PathFindingHelper.getDistance(from, upRight)
+        int distanceDownLeft = PathFindingHelper.getDistance(from, downLeft)
+        int distanceDownRight = PathFindingHelper.getDistance(from, downRight)
+
+        then:
+        distanceUpLeft == 1
+        distanceUpRight == 1
+        distanceDownLeft == 1
+        distanceDownRight == 1
+    }
+
 }

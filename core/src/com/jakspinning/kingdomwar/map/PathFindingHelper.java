@@ -1,6 +1,7 @@
 package com.jakspinning.kingdomwar.map;
 
 import com.badlogic.gdx.Gdx;
+import com.badlogic.gdx.math.MathUtils;
 import com.jakspinning.kingdomwar.component.MapComponent;
 
 import javax.xml.crypto.dsig.keyinfo.KeyValue;
@@ -40,19 +41,22 @@ public class PathFindingHelper {
                 break;
             }
 
-            for (GridPosition neighbor : map.getNeighbors(current)) {
+            for (GridPosition neighbor : HexGridHelper.getNeighbors(current)) {
                 int newCost = costSoFar.get(current) + map.getCost(current, neighbor);
                 if (!costSoFar.containsKey(neighbor) || newCost < costSoFar.get(neighbor)) {
                     costSoFar.put(neighbor, newCost);
                     int priority = newCost + getDistance(neighbor, to);
                     frontier.add(new SimpleEntry<GridPosition, Integer>(neighbor, priority));
                     cameFrom.put(neighbor, current);
+                    System.out.println(neighbor.xGrid + " " + neighbor.yGrid + " came from " + current.xGrid + " " + current.yGrid);
                 }
             }
         }
 
         GridPosition current = to;
+        //TODO Problem with Hashcode / get set from map
         while(current != null){
+            System.out.println("add path " + current.xGrid + " " + current.yGrid);
             path.add(current);
             current = cameFrom.get(current);
         }
@@ -60,7 +64,9 @@ public class PathFindingHelper {
         return path;
     }
 
-    private static int getDistance(GridPosition from, GridPosition to) {
-        return 0;
+    public static int getDistance(GridPosition from, GridPosition to) {
+        return (Math.abs(from.xGrid - to.xGrid)
+                + Math.abs(from.yGrid + from.xGrid - to.yGrid - to.xGrid)
+                + Math.abs(from.yGrid - to.yGrid)) / 2;
     }
 }

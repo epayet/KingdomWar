@@ -3,6 +3,9 @@ package com.jakspinning.kingdomwar.map;
 import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.utils.Array;
 
+import java.util.ArrayList;
+import java.util.List;
+
 /**
  * Created by emmanuel_payet on 16/04/15.
  */
@@ -33,4 +36,20 @@ public class HexGridHelper {
 
         return tiles;
     }
+
+    public static List<GridPosition> getNeighbors(GridPosition gridPosition) {
+        List<GridPosition> neighbors = new ArrayList<GridPosition>();
+
+        neighbors.add(new GridPosition(gridPosition.xGrid+1, gridPosition.yGrid));
+        neighbors.add(new GridPosition(gridPosition.xGrid-1, gridPosition.yGrid));
+
+        neighbors.add(new GridPosition(gridPosition.xGrid, gridPosition.yGrid+1));
+        neighbors.add(new GridPosition(gridPosition.xGrid+1, gridPosition.yGrid-1));
+
+        neighbors.add(new GridPosition(gridPosition.xGrid-1, gridPosition.yGrid+1));
+        neighbors.add(new GridPosition(gridPosition.xGrid, gridPosition.yGrid-1));
+
+        return neighbors;
+    }
+
 }
