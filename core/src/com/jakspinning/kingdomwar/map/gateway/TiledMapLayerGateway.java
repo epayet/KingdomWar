@@ -2,6 +2,7 @@ package com.jakspinning.kingdomwar.map.gateway;
 
 import com.badlogic.gdx.maps.MapLayer;
 import com.badlogic.gdx.maps.tiled.TiledMapTileLayer;
+import com.badlogic.gdx.utils.Array;
 import com.jakspinning.kingdomwar.Constants;
 import com.jakspinning.kingdomwar.map.HexTile;
 
@@ -30,10 +31,20 @@ public class TiledMapLayerGateway {
     }
 
     public void computeCellsGateway(int mapH, int mapW) {
-        for (int row = mapH - 1; row >= 0; row--) {
+//        for (int col = 0; col < mapW; col++) {
+//            ArrayList<CellGateway> colCells = new ArrayList<CellGateway>();
+//            cells.add(colCells);
+//            for (int row = mapH - 1; row >= 0; row--) {
+//                TiledMapTileLayer.Cell cell = mapLayer.getCell(col, row);
+//                CellGateway cellGateway = new CellGateway(cell);
+//                colCells.add(cellGateway);
+//            }
+//        }
+
+        for(int col = 0;col < mapW;col++){
             ArrayList<CellGateway> colCells = new ArrayList<CellGateway>();
             cells.add(colCells);
-            for (int col = 0; col < mapW; col++) {
+            for(int row = 0;row < mapH;row++){
                 TiledMapTileLayer.Cell cell = mapLayer.getCell(col, row);
                 CellGateway cellGateway = new CellGateway(cell);
                 colCells.add(cellGateway);

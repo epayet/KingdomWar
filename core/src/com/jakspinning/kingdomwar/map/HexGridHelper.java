@@ -24,10 +24,10 @@ public class HexGridHelper {
     public static Array<Array<HexTile>> initializeTiles(int mapW, int mapH) {
         Array<Array<HexTile>> tiles = new Array<Array<HexTile>>();
 
-        for(int i = 0;i < mapW;i++){
+        for(int col = 0;col < mapW;col++){
             tiles.add(new Array<HexTile>());
-            for(int j = 0;j < mapH;j++){
-                tiles.get(i).add(null);
+            for(int row = 0;row < mapH;row++){
+                tiles.get(col).add(null);
             }
         }
 
