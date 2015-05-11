@@ -9,6 +9,10 @@ import com.badlogic.gdx.maps.tiled.TiledMapTileLayer;
 public class CellGateway {
     private TextureRegion tileTextureRegion;
 
+    public CellGateway() {
+
+    }
+
     public CellGateway(TiledMapTileLayer.Cell cell) {
         if (cell != null) {
             tileTextureRegion = cell.getTile().getTextureRegion();

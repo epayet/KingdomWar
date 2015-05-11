@@ -13,22 +13,26 @@ import java.util.List;
 public class TiledMapGateway {
     public int mapH = 0;
     public int mapW = 0;
-    public List<TiledMapLayerGateway> layers;
+    public List<TiledMapLayerGateway> layersGateway = new ArrayList<TiledMapLayerGateway>();
+
+    public TiledMapGateway() {
+
+    }
 
     public TiledMapGateway(TiledMap tiledMap) {
-        List<TiledMapLayerGateway> layersGateway = new ArrayList<TiledMapLayerGateway>();
         for (MapLayer mapLayer : tiledMap.getLayers()) {
             if(mapLayer instanceof TiledMapTileLayer) {
                 layersGateway.add(new TiledMapLayerGateway((TiledMapTileLayer) mapLayer));
             }
         }
-        computeMapSize(layersGateway);
+        computeMapSize();
+        for (TiledMapLayerGateway tiledMapLayerGateway : layersGateway) {
+            tiledMapLayerGateway.computeCellsGateway(mapH, mapW);
+        }
     }
 
-    private void computeMapSize(List<TiledMapLayerGateway> tiledMapLayerGateway) {
-        this.layers = tiledMapLayerGateway;
-
-        for (TiledMapLayerGateway layerGateway : tiledMapLayerGateway) {
+    private void computeMapSize() {
+        for (TiledMapLayerGateway layerGateway : layersGateway) {
             final int layerWidth = layerGateway.width;
             final int layerHeight = layerGateway.height;
             mapH = Math.max(mapH, layerHeight);
