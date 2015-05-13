@@ -51,7 +51,7 @@ public class GridRendererSystem extends EntityProcessingSystem{
 				if(tile != null){
 					Vector2 position = HexGridHelper.toWorldCoord(x, y,tile.height, Constants.HEX_TILE_W,Constants.HEX_TILE_H,Constants.HEX_TILE_DEPTH);
 					//System.out.print("1, ");
-					spriteBatchManager.spriteBatch.draw(tile.texture, position.x , position.y);
+					spriteBatchManager.spriteBatch.draw(tile.texture, position.x -Constants.HEX_TILE_W/2 , position.y-Constants.HEX_TILE_H/2-Constants.HEX_TILE_DEPTH/2);
 				}else {
 					//System.out.print("0, ");
 				}

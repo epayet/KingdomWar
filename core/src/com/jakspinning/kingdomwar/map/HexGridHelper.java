@@ -8,10 +8,15 @@ import com.badlogic.gdx.math.Vector3;
  */
 public class HexGridHelper {
     public static Vector2 toWorldCoord(int xGrid,int yGrid,int zGrid,float w,float h,float depth){
-
         float y = yGrid * h * 3 / 4f + zGrid * depth;
         float x = xGrid * w - yGrid % 2 * w / 2f;
         return new Vector2(x,y);
+    }
+    
+    public static GridPosition toHexCoord(float xPix,float yPix,float w,float h,float depth){
+    	float yGrid = yPix*4/3f/h;
+    	float xGrid = (xPix+yGrid%2/2f)/w;
+    	return new Vector2(xGrid,yGrid);
     }
 
     public static Vector2 toHexCenterWorldCoord(int xGrid,int yGrid,float w,float h,float depth){
@@ -54,12 +59,14 @@ public class HexGridHelper {
         return new Vector2(cube.x, cube.z);
     }
 
-    public static Vector2 pixelToHex(int x, int y, int size) {
-        int q = (int) ((x * Math.sqrt(3) / 3 - y / 3) / size);
-        int r = y * 2 / 3 / size;
-        Vector2 axial = new Vector2(q, r);
-        return cubeToHexOffset(roundCube(hexAxialToCube(axial)));
-    }
+
+    
+//    public static Vector2 pixelToHex(int x, int y, int size) {
+//        int q = (int) ((x * Math.sqrt(3) / 3 - y / 3) / size);
+//        int r = y * 2 / 3 / size;
+//        Vector2 axial = new Vector2(q, r);
+//        return cubeToHexOffset(roundCube(hexAxialToCube(axial)));
+//    }
 
     public static Vector2 roundHex(Vector2 hex) {
         return cubeToHexOffset(roundCube(hexOffsetToCube(hex)));
