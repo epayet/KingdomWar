@@ -13,12 +13,22 @@ public class GridPosition {
     }
 
     @Override
-    public boolean equals(Object obj) {
-        if(obj instanceof GridPosition){
-            GridPosition gridPosition = (GridPosition) obj;
-            return gridPosition.xGrid == this.xGrid && gridPosition.yGrid == this.yGrid;
-        }else{
-            return false;
-        }
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+
+        GridPosition that = (GridPosition) o;
+
+        if (xGrid != that.xGrid) return false;
+        if (yGrid != that.yGrid) return false;
+
+        return true;
+    }
+
+    @Override
+    public int hashCode() {
+        int result = xGrid;
+        result = 31 * result + yGrid;
+        return result;
     }
 }

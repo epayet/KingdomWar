@@ -48,16 +48,13 @@ public class PathFindingHelper {
                     int priority = newCost + getDistance(neighbor, to);
                     frontier.add(new SimpleEntry<GridPosition, Integer>(neighbor, priority));
                     cameFrom.put(neighbor, current);
-                    System.out.println(neighbor.xGrid + " " + neighbor.yGrid + " came from " + current.xGrid + " " + current.yGrid);
                 }
             }
         }
 
         GridPosition current = to;
-        //TODO Problem with Hashcode / get set from map
         while(current != null){
-            System.out.println("add path " + current.xGrid + " " + current.yGrid);
-            path.add(current);
+            path.add(0,current);
             current = cameFrom.get(current);
         }
 

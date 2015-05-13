@@ -18,10 +18,10 @@ class PathFindingHelperTest extends Specification {
 
         then:
         path.size() == 2
-        path.get(0).x == 0
-        path.get(0).y == 0
-        path.get(1).x == 1
-        path.get(1).y == 0
+        path.get(0).xGrid == 0
+        path.get(0).yGrid == 0
+        path.get(1).xGrid == 1
+        path.get(1).yGrid == 0
     }
 
     def "computeDistance: neighbor X"(){
@@ -37,7 +37,7 @@ class PathFindingHelperTest extends Specification {
         distanceRight == 1
         distanceLeft == 1
     }
-    //TODO MANU split les tests
+
     def "computeDistance: neighbor Y"(){
         given:
         GridPosition from = new GridPosition(0,0)
