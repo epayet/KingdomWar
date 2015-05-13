@@ -17,6 +17,8 @@ import com.jakspinning.kingdomwar.manager.SelectionManager;
 import com.jakspinning.kingdomwar.manager.SpriteBatchManager;
 import com.jakspinning.kingdomwar.map.HexGridHelper;
 import com.jakspinning.kingdomwar.map.TiledMapLoader;
+import com.jakspinning.kingdomwar.map.tmx.ITmxMapLoader;
+import com.jakspinning.kingdomwar.map.tmx.LibgdxTmxMapLoader;
 import com.jakspinning.kingdomwar.system.GridRendererSystem;
 import com.jakspinning.kingdomwar.system.PrepareGraphicSystem;
 import com.jakspinning.kingdomwar.system.RendererSystem;
@@ -51,8 +53,12 @@ public class KingdomWarGame extends ApplicationAdapter implements InputProcessor
 
         world.initialize();
 
+
+        LibgdxTmxMapLoader libgdxTmxMapLoader = new LibgdxTmxMapLoader();
+        TiledMapLoader tiledMapLoader = new TiledMapLoader(libgdxTmxMapLoader);
+
         Entity map = new EntityBuilder(world)
-                .with(TiledMapLoader.loadMap("test.tmx"))
+                .with(tiledMapLoader.loadMap("test.tmx"))
                 .build();
 
         Entity selectedTile = new EntityBuilder(world)
@@ -63,9 +69,8 @@ public class KingdomWarGame extends ApplicationAdapter implements InputProcessor
 
         Entity perso = new EntityBuilder(world)
                 .with(new PositionComponent(HexGridHelper.toHexCenterWorldCoord(1, 1, Constants.HEX_TILE_W, Constants.HEX_TILE_H, Constants.HEX_TILE_DEPTH)))
-                .with(new TextureComponent(new Texture("Tiles/alienBlue.png")))
+                        .with(new TextureComponent(new Texture("Tiles/alienBlue.png")))
                 .build();
-
         Gdx.input.setInputProcessor(this);
     }
 
@@ -75,6 +80,7 @@ public class KingdomWarGame extends ApplicationAdapter implements InputProcessor
 		cameraManager.camera.update();
         world.setDelta(Gdx.graphics.getDeltaTime());
         world.process();
+        
     }
 
     @Override
