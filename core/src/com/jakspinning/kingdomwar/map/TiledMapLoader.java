@@ -1,17 +1,13 @@
 package com.jakspinning.kingdomwar.map;
 
-import com.badlogic.gdx.maps.MapLayer;
-import com.badlogic.gdx.maps.tiled.TiledMapTile;
-import com.badlogic.gdx.maps.tiled.TiledMapTileLayer;
-import com.badlogic.gdx.utils.Array;
-import com.jakspinning.kingdomwar.Constants;
+import java.util.HashMap;
+
+import com.badlogic.gdx.math.Vector2;
 import com.jakspinning.kingdomwar.component.MapComponent;
 import com.jakspinning.kingdomwar.map.gateway.CellGateway;
-import com.jakspinning.kingdomwar.map.gateway.TiledMapLayerGateway;
 import com.jakspinning.kingdomwar.map.gateway.TiledMapGateway;
+import com.jakspinning.kingdomwar.map.gateway.TiledMapLayerGateway;
 import com.jakspinning.kingdomwar.map.tmx.ITmxMapLoader;
-
-import java.util.List;
 
 /**
  * Created by emmanuel_payet on 27/04/15.
@@ -27,15 +23,16 @@ public class TiledMapLoader {
 	public MapComponent loadMap(String path){
 		TiledMapGateway tiledMapGateway = tmxMapLoader.load(path);
 		int mapH = tiledMapGateway.mapH, mapW = tiledMapGateway.mapW;
-		Array<Array<HexTile>> tiles = HexGridHelper.initializeTiles(mapW, mapH);
+		HashMap<GridPosition, HexTile> tiles = new HashMap<GridPosition, HexTile>();
 
 		for(TiledMapLayerGateway layerGateway : tiledMapGateway.layersGateway) {
 			final int altitude = layerGateway.altitude;
-			for (int row = mapH - 1; row >= 0; row--) {
+			for (int row = 0; row < mapH; row++) {
 				for (int col = 0; col < mapW; col++) {
 					final CellGateway cellGateway = layerGateway.getCellGateway(col, row);
 					if (!cellGateway.isEmpty()) {
-						tiles.get(col).set(row, new HexTile(altitude, cellGateway.getTileTextureRegion()));
+						GridPosition axial = HexGridHelper.cubeToHexAxial(HexGridHelper.hexOffsetToCube(new Vector2(col,row)));
+						tiles.put(axial, new HexTile(altitude, cellGateway.getTileTextureRegion()));
 					}
 				}
 			}

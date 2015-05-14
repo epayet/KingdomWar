@@ -1,5 +1,8 @@
 package com.jakspinning.kingdomwar.system;
 
+import java.util.List;
+import java.util.Map.Entry;
+
 import com.artemis.Aspect;
 import com.artemis.ComponentMapper;
 import com.artemis.Entity;
@@ -10,6 +13,7 @@ import com.jakspinning.kingdomwar.Constants;
 import com.jakspinning.kingdomwar.component.MapComponent;
 import com.jakspinning.kingdomwar.manager.CameraManager;
 import com.jakspinning.kingdomwar.manager.SpriteBatchManager;
+import com.jakspinning.kingdomwar.map.GridPosition;
 import com.jakspinning.kingdomwar.map.HexGridHelper;
 import com.jakspinning.kingdomwar.map.HexTile;
 
@@ -43,22 +47,13 @@ public class GridRendererSystem extends EntityProcessingSystem{
 	@Override
 	protected void process(Entity e) {
 		MapComponent mapComponent = mapComponentMapper.get(e);
-		int h = mapComponent.mapHeight;
-		int w = mapComponent.mapWidth;
-		for(int y = h-1;y >= 0 ;y--){
-			for(int x = 0; x < w;x++){
-				HexTile tile = mapComponent.getTile(x,y);
-				if(tile != null){
-					Vector2 position = HexGridHelper.toWorldCoord(x, y,tile.height, Constants.HEX_TILE_W,Constants.HEX_TILE_H,Constants.HEX_TILE_DEPTH);
-					//System.out.print("1, ");
-					spriteBatchManager.spriteBatch.draw(tile.texture, position.x -Constants.HEX_TILE_W/2 , position.y-Constants.HEX_TILE_H/2-Constants.HEX_TILE_DEPTH/2);
-				}else {
-					//System.out.print("0, ");
-				}
-			}
-			//System.out.println("");
-		}
-		//System.out.println("================================");
+		List<Entry<GridPosition, HexTile>> tiles = mapComponent.getSortedTiles();
+		for (Entry<GridPosition, HexTile> entry : tiles) {
+			GridPosition grid = entry.getKey();
+			HexTile tile = entry.getValue();
+			Vector2 position = HexGridHelper.toWorldCoord(grid.xGrid, grid.yGrid,tile.height, Constants.HEX_TILE_W,Constants.HEX_TILE_H,Constants.HEX_TILE_DEPTH);
+			spriteBatchManager.spriteBatch.draw(tile.texture, position.x -Constants.HEX_TILE_W/2 , position.y-Constants.HEX_TILE_H/2-Constants.HEX_TILE_DEPTH/2); 
+		}	
 	}
 
 

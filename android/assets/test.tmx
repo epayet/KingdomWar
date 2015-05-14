@@ -9,7 +9,7 @@
    eJyTZWBgkCUBM2PB+NSh60FXg0svNrOYCKglxi34/EGKOlLCjBQMAD/mCBQ=
   </data>
  </layer>
- <layer name="Calque 2" width="10" height="10">
+ <layer name="Calque 2" width="10" height="10" visible="0">
   <properties>
    <property name="height" value="1"/>
   </properties>
@@ -17,7 +17,7 @@
    eJxjYCANCAIxJxompI4bj1pBJDUwdYI4zGRCsxebOkEseCgBAETHAUM=
   </data>
  </layer>
- <layer name="Calque 3" width="10" height="10">
+ <layer name="Calque 3" width="10" height="10" visible="0">
   <properties>
    <property name="height" value="2"/>
   </properties>

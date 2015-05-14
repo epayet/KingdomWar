@@ -1,12 +1,13 @@
 package com.jakspinning.kingdomwar.map;
 
-import com.badlogic.gdx.Gdx;
-import com.badlogic.gdx.math.MathUtils;
-import com.jakspinning.kingdomwar.component.MapComponent;
-
-import javax.xml.crypto.dsig.keyinfo.KeyValue;
-import java.util.*;
 import java.util.AbstractMap.SimpleEntry;
+import java.util.ArrayList;
+import java.util.Comparator;
+import java.util.HashMap;
+import java.util.List;
+import java.util.PriorityQueue;
+
+import com.jakspinning.kingdomwar.component.MapComponent;
 
 
 /**

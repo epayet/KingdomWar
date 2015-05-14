@@ -10,6 +10,7 @@ import com.badlogic.gdx.Input;
 import com.badlogic.gdx.InputProcessor;
 import com.badlogic.gdx.graphics.OrthographicCamera;
 import com.badlogic.gdx.graphics.Texture;
+import com.jakspinning.kingdomwar.component.MapComponent;
 import com.jakspinning.kingdomwar.component.PositionComponent;
 import com.jakspinning.kingdomwar.component.TextureComponent;
 import com.jakspinning.kingdomwar.manager.CameraManager;
@@ -17,7 +18,6 @@ import com.jakspinning.kingdomwar.manager.SelectionManager;
 import com.jakspinning.kingdomwar.manager.SpriteBatchManager;
 import com.jakspinning.kingdomwar.map.HexGridHelper;
 import com.jakspinning.kingdomwar.map.TiledMapLoader;
-import com.jakspinning.kingdomwar.map.tmx.ITmxMapLoader;
 import com.jakspinning.kingdomwar.map.tmx.LibgdxTmxMapLoader;
 import com.jakspinning.kingdomwar.system.GridRendererSystem;
 import com.jakspinning.kingdomwar.system.PrepareGraphicSystem;
@@ -66,12 +66,16 @@ public class KingdomWarGame extends ApplicationAdapter implements InputProcessor
                 .with(new TextureComponent(new Texture("Tiles/tileSelected.png")))
                 .build();
         selectionManager.position = selectedTile.getComponent(PositionComponent.class);
+        selectionManager.map = map.getComponent(MapComponent.class);
 
         Entity perso = new EntityBuilder(world)
                 .with(new PositionComponent(HexGridHelper.toHexCenterWorldCoord(1, 1, Constants.HEX_TILE_W, Constants.HEX_TILE_H, Constants.HEX_TILE_DEPTH)))
                         .with(new TextureComponent(new Texture("Tiles/alienBlue.png")))
                 .build();
         Gdx.input.setInputProcessor(this);
+        
+        //J'aime po les warnings
+        System.out.println("created " + perso + " " + map + " " + selectedTile);
     }
 
 	@Override
