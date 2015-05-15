@@ -51,7 +51,7 @@ public class MapComponent extends Component{
 	}
 
 	public List<Entry<GridPosition,HexTile>> getSortedTiles(){
-		ArrayList<Entry<GridPosition,HexTile>> tilesList= new ArrayList<Map.Entry<GridPosition,HexTile>>(tiles.entrySet());
+		ArrayList<Entry<GridPosition,HexTile>> tilesList = new ArrayList<Map.Entry<GridPosition,HexTile>>(tiles.entrySet());
 		Collections.sort(tilesList,tileYComparator);	
 		return tilesList;
 	}

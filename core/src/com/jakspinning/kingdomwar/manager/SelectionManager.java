@@ -2,6 +2,7 @@ package com.jakspinning.kingdomwar.manager;
 
 import com.artemis.Manager;
 import com.jakspinning.kingdomwar.component.MapComponent;
+import com.jakspinning.kingdomwar.component.MoveComponent;
 import com.jakspinning.kingdomwar.component.PositionComponent;
 
 /**
@@ -11,4 +12,5 @@ public class SelectionManager extends Manager {
 
     public PositionComponent position;
     public MapComponent map;
+    public MoveComponent moveComponent;
 }

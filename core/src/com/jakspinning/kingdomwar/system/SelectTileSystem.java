@@ -7,6 +7,7 @@ import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.math.Vector3;
 import com.jakspinning.kingdomwar.Constants;
 import com.jakspinning.kingdomwar.component.MapComponent;
+import com.jakspinning.kingdomwar.component.MoveComponent;
 import com.jakspinning.kingdomwar.component.PositionComponent;
 import com.jakspinning.kingdomwar.manager.CameraManager;
 import com.jakspinning.kingdomwar.manager.SelectionManager;
@@ -41,6 +42,7 @@ public class SelectTileSystem extends VoidEntitySystem {
 		PositionComponent position = selectionManager.position;
 		MapComponent map = selectionManager.map;
 
+
 		GridPosition grid = HexGridHelper.toHexCoord(pos.x, pos.y, Constants.HEX_TILE_W, Constants.HEX_TILE_H);
 		HexTile tile = map.getTile(grid);
 		if(tile != null){
@@ -50,10 +52,14 @@ public class SelectTileSystem extends VoidEntitySystem {
 				grid = HexGridHelper.toHexCoord(pos.x, pos.y, Constants.HEX_TILE_W, Constants.HEX_TILE_H);
 				tile = map.getTile(grid);
 			}
-			Vector2 newPos = HexGridHelper.toWorldCoord(grid.xGrid, grid.yGrid, tile.height, Constants.HEX_TILE_W, Constants.HEX_TILE_H, Constants.HEX_TILE_DEPTH);        
 
+			//TODO Replace with Notify tile selected
+			selectionManager.moveComponent.targetPosition = grid;
+
+			Vector2 newPos = HexGridHelper.toWorldCoord(grid.xGrid, grid.yGrid, tile.height, Constants.HEX_TILE_W, Constants.HEX_TILE_H, Constants.HEX_TILE_DEPTH);
 			position.position.x = newPos.x;
 			position.position.y = newPos.y;
+
 		}
 	}
 }

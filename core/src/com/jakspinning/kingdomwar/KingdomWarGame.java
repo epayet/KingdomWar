@@ -11,18 +11,17 @@ import com.badlogic.gdx.InputProcessor;
 import com.badlogic.gdx.graphics.OrthographicCamera;
 import com.badlogic.gdx.graphics.Texture;
 import com.jakspinning.kingdomwar.component.MapComponent;
+import com.jakspinning.kingdomwar.component.MoveComponent;
 import com.jakspinning.kingdomwar.component.PositionComponent;
 import com.jakspinning.kingdomwar.component.TextureComponent;
 import com.jakspinning.kingdomwar.manager.CameraManager;
 import com.jakspinning.kingdomwar.manager.SelectionManager;
 import com.jakspinning.kingdomwar.manager.SpriteBatchManager;
+import com.jakspinning.kingdomwar.map.GridPosition;
 import com.jakspinning.kingdomwar.map.HexGridHelper;
 import com.jakspinning.kingdomwar.map.TiledMapLoader;
 import com.jakspinning.kingdomwar.map.tmx.LibgdxTmxMapLoader;
-import com.jakspinning.kingdomwar.system.GridRendererSystem;
-import com.jakspinning.kingdomwar.system.PrepareGraphicSystem;
-import com.jakspinning.kingdomwar.system.RendererSystem;
-import com.jakspinning.kingdomwar.system.SelectTileSystem;
+import com.jakspinning.kingdomwar.system.*;
 
 
 public class KingdomWarGame extends ApplicationAdapter implements InputProcessor {
@@ -51,6 +50,8 @@ public class KingdomWarGame extends ApplicationAdapter implements InputProcessor
 
         world.setSystem(new RendererSystem());
 
+        world.setSystem(new MoveEntitySystem());
+
         world.initialize();
 
 
@@ -65,17 +66,19 @@ public class KingdomWarGame extends ApplicationAdapter implements InputProcessor
                 .with(new PositionComponent(HexGridHelper.toHexCenterWorldCoord(1, 1, Constants.HEX_TILE_W, Constants.HEX_TILE_H, Constants.HEX_TILE_DEPTH / 2)))
                 .with(new TextureComponent(new Texture("Tiles/tileSelected.png")))
                 .build();
+
+
+        Entity hero = new EntityBuilder(world)
+                .with(new PositionComponent(HexGridHelper.toHexCenterWorldCoord(1, 1, Constants.HEX_TILE_W, Constants.HEX_TILE_H, Constants.HEX_TILE_DEPTH)))
+                .with(new TextureComponent(new Texture("Tiles/alienBlue.png")))
+                .with(new MoveComponent(new GridPosition(3,3)))
+                .build();
+
         selectionManager.position = selectedTile.getComponent(PositionComponent.class);
         selectionManager.map = map.getComponent(MapComponent.class);
-
-        Entity perso = new EntityBuilder(world)
-                .with(new PositionComponent(HexGridHelper.toHexCenterWorldCoord(1, 1, Constants.HEX_TILE_W, Constants.HEX_TILE_H, Constants.HEX_TILE_DEPTH)))
-                        .with(new TextureComponent(new Texture("Tiles/alienBlue.png")))
-                .build();
+        selectionManager.moveComponent = hero.getComponent(MoveComponent.class);
         Gdx.input.setInputProcessor(this);
-        
-        //J'aime po les warnings
-        System.out.println("created " + perso + " " + map + " " + selectedTile);
+
     }
 
 	@Override
