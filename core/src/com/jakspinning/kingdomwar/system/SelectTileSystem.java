@@ -25,8 +25,6 @@ public class SelectTileSystem extends VoidEntitySystem {
 
 	@Override
 	protected void initialize() {
-		this.cameraManager = world.getManager(CameraManager.class);
-		this.selectionManager = world.getManager(SelectionManager.class);
 	}
 
 	@Override
@@ -53,7 +51,6 @@ public class SelectTileSystem extends VoidEntitySystem {
 				tile = map.getTile(grid);
 			}
 			Vector2 newPos = HexGridHelper.toWorldCoord(grid.xGrid, grid.yGrid, tile.height, Constants.HEX_TILE_W, Constants.HEX_TILE_H, Constants.HEX_TILE_DEPTH);        
-			System.out.println(" "+pos.x+" "+pos.y+" "+grid.xGrid+" "+grid.yGrid + " to " +newPos.x +" "+newPos.y);
 
 			position.position.x = newPos.x;
 			position.position.y = newPos.y;
