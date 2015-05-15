@@ -1,7 +1,9 @@
 package com.jakspinning.kingdomwar.map;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import com.badlogic.gdx.math.MathUtils;
 import com.badlogic.gdx.math.Vector2;
@@ -98,13 +100,13 @@ public class HexGridHelper {
 		return new Vector3(rx, ry, rz);
 	}
 
-	public static Array<Array<HexTile>> initializeTiles(int mapW, int mapH) {
-		Array<Array<HexTile>> tiles = new Array<Array<HexTile>>();
+	public static HashMap<GridPosition, HexTile> initializeTiles(int mapW, int mapH) {
+		HashMap<GridPosition, HexTile> tiles = new HashMap<GridPosition, HexTile>();
 
-		for(int col = 0;col < mapW;col++){
-			tiles.add(new Array<HexTile>());
-			for(int row = 0;row < mapH;row++){
-				tiles.get(col).add(null);
+		for (int col = 0; col < mapW; col++) {
+			for (int row = 0; row < mapH; row++) {
+				GridPosition axial = HexGridHelper.cubeToHexAxial(HexGridHelper.hexOffsetToCube(new Vector2(col,row)));
+				tiles.put(axial, new HexTile());
 			}
 		}
 

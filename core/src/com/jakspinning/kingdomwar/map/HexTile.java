@@ -13,4 +13,8 @@ public class HexTile {
         this.height = height;
         this.texture = texture;
     }
+
+    public HexTile() {
+
+    }
 }

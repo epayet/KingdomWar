@@ -1,5 +1,6 @@
 package com.jakspinning.kingdomwar.map
 
+import com.badlogic.gdx.graphics.g2d.TextureRegion
 import com.jakspinning.kingdomwar.component.MapComponent
 import com.jakspinning.kingdomwar.map.gateway.CellGateway
 import com.jakspinning.kingdomwar.map.gateway.TiledMapGateway
@@ -19,7 +20,10 @@ class TiledMapLoaderTest extends Specification {
         def tiledMapLayerGateway = new TiledMapLayerGateway()
 
         def colCells = new ArrayList<CellGateway>()
-        colCells.add(new CellGateway())
+
+        def cellGateway = new CellGateway()
+        cellGateway.tileTextureRegion = new TextureRegion()
+        colCells.add(cellGateway)
         tiledMapLayerGateway.cells.add(colCells)
         tiledMapGateway.layersGateway.add(tiledMapLayerGateway)
 
@@ -32,6 +36,6 @@ class TiledMapLoaderTest extends Specification {
         then:
         mapComponent.mapHeight == 1
         mapComponent.mapWidth == 1
-        mapComponent.tiles.size == 1
+        mapComponent.tiles.size() == 1
     }
 }

@@ -23,7 +23,7 @@ public class TiledMapLoader {
 	public MapComponent loadMap(String path){
 		TiledMapGateway tiledMapGateway = tmxMapLoader.load(path);
 		int mapH = tiledMapGateway.mapH, mapW = tiledMapGateway.mapW;
-		HashMap<GridPosition, HexTile> tiles = new HashMap<GridPosition, HexTile>();
+		HashMap<GridPosition, HexTile> tiles = HexGridHelper.initializeTiles(mapW, mapH);
 
 		for(TiledMapLayerGateway layerGateway : tiledMapGateway.layersGateway) {
 			final int altitude = layerGateway.altitude;

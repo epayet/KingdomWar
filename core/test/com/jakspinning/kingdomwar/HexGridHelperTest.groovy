@@ -20,7 +20,7 @@ class HexGridHelperTest extends Specification {
         Vector2 pos = HexGridHelper.toWorldCoord(xGrid,yGrid,zGrid, size, size, depth)
 
         then:
-        Math.round(pos.x) == 10
+        Math.round(pos.x) == 13
         Math.round(pos.y) == 9
     }
 }
