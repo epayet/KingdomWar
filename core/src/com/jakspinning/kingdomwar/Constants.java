@@ -11,5 +11,6 @@ public class Constants {
     public static final float HEX_TILE_W = 65;
     public static final float HEX_TILE_H = 67;
     public static final float HEX_TILE_DEPTH = 22;
+    public static final float MIN_TEST_DISTANCE = 1;
 }
 

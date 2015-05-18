@@ -9,6 +9,8 @@ import java.util.Map;
 import java.util.Map.Entry;
 
 import com.artemis.Component;
+import com.artemis.Entity;
+import com.jakspinning.kingdomwar.KingdomWarGame;
 import com.jakspinning.kingdomwar.map.GridPosition;
 import com.jakspinning.kingdomwar.map.HexTile;
 
@@ -58,5 +60,9 @@ public class MapComponent extends Component{
 
 	public Integer getCost(GridPosition current, GridPosition neighbor) {
 		return 0;
+	}
+
+	public Entity getUnitOnTile(GridPosition position){
+		return KingdomWarGame.hero;
 	}
 }

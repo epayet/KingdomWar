@@ -25,6 +25,7 @@ import com.jakspinning.kingdomwar.system.*;
 
 
 public class KingdomWarGame extends ApplicationAdapter implements InputProcessor {
+    public static Entity hero;
     private World world;
     private CameraManager cameraManager;
 
@@ -68,10 +69,10 @@ public class KingdomWarGame extends ApplicationAdapter implements InputProcessor
                 .build();
 
 
-        Entity hero = new EntityBuilder(world)
+        KingdomWarGame.hero = new EntityBuilder(world)
                 .with(new PositionComponent(HexGridHelper.toHexCenterWorldCoord(1, 1, Constants.HEX_TILE_W, Constants.HEX_TILE_H, Constants.HEX_TILE_DEPTH)))
                 .with(new TextureComponent(new Texture("Tiles/alienBlue.png")))
-                .with(new MoveComponent(new GridPosition(3,3)))
+                .with(new MoveComponent())
                 .build();
 
         selectionManager.position = selectedTile.getComponent(PositionComponent.class);
