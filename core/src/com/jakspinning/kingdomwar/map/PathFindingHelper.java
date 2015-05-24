@@ -1,10 +1,6 @@
 package com.jakspinning.kingdomwar.map;
 
-import com.badlogic.gdx.Gdx;
-import com.badlogic.gdx.math.MathUtils;
 import com.jakspinning.kingdomwar.component.MapComponent;
-
-import javax.xml.crypto.dsig.keyinfo.KeyValue;
 import java.util.*;
 import java.util.AbstractMap.SimpleEntry;
 
@@ -18,8 +14,9 @@ public class PathFindingHelper {
     public static List<GridPosition> getPath(MapComponent map, GridPosition from, GridPosition to) {
         List<GridPosition> path = new ArrayList<GridPosition>();
 
+        //TODO why 1 ?
         PriorityQueue<SimpleEntry<GridPosition,Integer>> frontier = new PriorityQueue<SimpleEntry<GridPosition,Integer>>(
-                new Comparator<SimpleEntry<GridPosition, Integer>>() {
+                1, new Comparator<SimpleEntry<GridPosition, Integer>>() {
                     @Override
                     public int compare(SimpleEntry<GridPosition, Integer> o1, SimpleEntry<GridPosition, Integer> o2) {
                         return o1.getValue() - o2.getValue();
