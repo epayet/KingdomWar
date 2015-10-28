@@ -1,6 +1,6 @@
 # Kingdom War
 
-Free cross-platform turn-based tactical RPG. In development right now. Written in Java using [Libgdx](https://libgdx.badlogicgames.com/) and [artemis-odb](https://github.com/junkdog/artemis-odb). Tests are written in Groovy/[Spock](https://github.com/spockframework/spock). It runs on Android, Desktop and on the web.
+Free cross-platform turn-based tactical RPG. In development right now. Written in Java using [Libgdx](https://libgdx.badlogicgames.com/) and [artemis-odb](https://github.com/junkdog/artemis-odb). Tests are written in Groovy/[Spock](https://github.com/spockframework/spock). It runs on Android, Desktop and on the web. Created just for fun :)
 
 Current state of the game:
 
